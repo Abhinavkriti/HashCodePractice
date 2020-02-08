@@ -9,12 +9,20 @@
 #include <map>
 #include <queue>
 #include <ctime>
+<<<<<<< HEAD
 #include <stdlib.h>
+=======
+#include <stdlib.h> 
+>>>>>>> 07800c510e41832bbbe5b6e12f0453835a6508b2
 
 class CSVReader
 {
 	std::string fileName;
+<<<<<<< HEAD
 
+=======
+ 
+>>>>>>> 07800c510e41832bbbe5b6e12f0453835a6508b2
     public:
         CSVReader(std::string filename) :
                 fileName(filename)
@@ -31,7 +39,11 @@ void CSVReader::set(std::string & fileName){
 void CSVReader::get(std::vector<std::vector<int>> & dataList)
 {
 	std::ifstream file(fileName);
+<<<<<<< HEAD
 
+=======
+ 
+>>>>>>> 07800c510e41832bbbe5b6e12f0453835a6508b2
 	std::string line;
 
 	while(std::getline(file,line))
@@ -79,11 +91,19 @@ class neighbour{
 };
 
 class compareNeighbours{
+<<<<<<< HEAD
     public:
         int operator() (const neighbour& p1, const neighbour& p2)
         {
             return p1.getCost() > p2.getCost();
         }
+=======
+    public: 
+        int operator() (const neighbour& p1, const neighbour& p2) 
+        { 
+            return p1.getCost() > p2.getCost(); 
+        } 
+>>>>>>> 07800c510e41832bbbe5b6e12f0453835a6508b2
 };
 
 class tabu_search{
@@ -99,7 +119,11 @@ class tabu_search{
 
     std::map<std::vector<int>, int> recency_frequency_matrix;
     std::map<std::vector<int>, int> frequency_matrix;
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 07800c510e41832bbbe5b6e12f0453835a6508b2
     int best_score;
     int current_state_score;
     int numIter;
@@ -108,7 +132,11 @@ class tabu_search{
     int find_cost(const std::vector<int> &);
     void swap(std::vector<int> & state, const int & index1, const int & index2);
     bool try_add(const std::vector<int> &);
+<<<<<<< HEAD
     // void print_recency_matrix();
+=======
+    void print_recency_matrix();
+>>>>>>> 07800c510e41832bbbe5b6e12f0453835a6508b2
     // static int myrandom(int);
 
     public:
