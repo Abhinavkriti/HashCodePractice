@@ -14,10 +14,12 @@
 class CSVReader
 {
 	std::string fileName;
+    char delimiter;
  
     public:
-        CSVReader(std::string filename) :
-                fileName(filename)
+        CSVReader(std::string filename, char delimiter=',') :
+                fileName(filename),
+                delimiter(delimiter)
         { }
 
         void get(std::vector<std::vector<int>>&);
@@ -39,7 +41,7 @@ void CSVReader::get(std::vector<std::vector<int>> & dataList)
         std::stringstream lineStream(line);
         std::string cell;
         std::vector<int> parsedRow;
-        while(std::getline(lineStream,cell,','))
+        while(std::getline(lineStream,cell,delimiter))
         {
             parsedRow.emplace_back(std::stoi(cell));
         }
