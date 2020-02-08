@@ -1,2 +1,2 @@
 language = "cpp"
-run = "clang++-7 -pthread -o main tabu_search.cpp main.cpp"
+run = "cd ~/HashCodePractice/build; cmake ..; make; ./hash_code"
