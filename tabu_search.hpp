@@ -41,7 +41,7 @@ void CSVReader::get(std::vector<std::vector<int>> & dataList)
         std::stringstream lineStream(line);
         std::string cell;
         std::vector<int> parsedRow;
-        while(std::getline(lineStream,cell,delimiter))
+        while(std::getline(lineStream,cell, this->delimiter))
         {
             parsedRow.emplace_back(std::stoi(cell));
         }
