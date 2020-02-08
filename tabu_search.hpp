@@ -21,7 +21,7 @@ class CSVReader
                 delimiter(delimiter)
         { }
 
-        void get(std::vector<std::vector<int>>&);
+        std::vector<std::vector<int>> get();
         void set(std::string & fileName);
 };
 
@@ -29,13 +29,19 @@ void CSVReader::set(std::string & fileName){
     this->fileName = fileName;
 }
 
-void CSVReader::get(std::vector<std::vector<int>> & dataList)
+std::vector<std::vector<int>> CSVReader::get()
 {
-	std::ifstream file(fileName);
+    std::vector<std::vector<int>> dataList;
+	std::cout << fileName <<std::endl;
+    std::ifstream file(fileName);
+    if (file) {
+        std::cout << "read file" <<std::endl;
+    }
 	std::string line;
 
 	while(std::getline(file,line))
     {
+        std::cout << "csvreader::get::whileGetLine" << std::endl;
         std::stringstream lineStream(line);
         std::string cell;
         std::vector<int> parsedRow;
@@ -48,6 +54,8 @@ void CSVReader::get(std::vector<std::vector<int>> & dataList)
     }
 	// Close the File
 	file.close();
+
+    return dataList;
 }
 
 class neighbour{
