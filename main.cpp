@@ -15,7 +15,19 @@
 
 
 int main(int argc, char **argv) {
-    
-    std::cout << "Hello, world." << std::endl;
+    CSVReader a_example = CSVReader("a_example.in", ' ');
+
+
+    std::vector<std::vector<int>> input = a_example.get();
+    std::cout << input.size()  << std::endl;
+
+    for (int i = 0; i < input.size(); ++i) {
+
+        for (int j = 0; j < input[i].size(); ++j) {
+            std::cout << input[i][j] << " ";
+        }
+        std::cout << input[i].size() << std::endl;
+    }
+
     return 0;
 }
