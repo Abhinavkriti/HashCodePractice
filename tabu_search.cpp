@@ -207,11 +207,3 @@ void tabu_search::solve(){
 void tabu_search::test_cases(){
     std::cout << "Final Cost: " << std::to_string(this->find_cost()) << std::endl;
 }
-
-int main(){
-    std::srand(std::time(NULL));
-    int tabu_tenure = rand() % 10 + 300;
-    std::cout << "Tabu Tenure: " << std::to_string(tabu_tenure) << std::endl;
-    tabu_search ts(tabu_tenure);
-    ts.solve();
-}
