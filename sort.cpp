@@ -9,8 +9,8 @@ namespace sorting{
   }
 
   template<typename T>
-  void sorts<T>::sort(T& arr){
-    std::sort(arr.begin(), arr.end(), this.comparator);
+  void sorts<T>::sort(){
+    std::sort(this.internal_data_store.begin(), this.internal_data_store.end(), this.comparator);
   }
 
 }
