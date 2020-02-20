@@ -230,11 +230,14 @@ void tabu_search::move(){
             if(x.getIndex1() < 0){
                 free_libraries.erase(temp);
                 for(const auto &c : temp.getBooks()){
-
+                  considered_books[c]++;
                 }
             }
             else if(x.getIndex1() == x.getIndex2()){
-
+                free_libraries.insert(temp);
+                for(const auto &c: temp.getBooks()){
+                  considered_books[c]--;
+                }
             }
             else{
                 this->swap(state_copy, x.getIndex1(), x.getIndex2());
