@@ -9,6 +9,8 @@
 #include <map>
 #include <queue>
 #include <ctime>
+#include <set>
+#include <map>
 
 class CSVReader
 {
@@ -58,6 +60,54 @@ std::vector<std::vector<int>> CSVReader::get()
     return dataList;
 }
 
+class library{
+	std::vector<int> & state;
+	int time_to_setup;
+	int num_books;
+	int cost;
+	int id;
+
+	void calcCost(const std::unordered_map<int> & bookMapping){
+		int cost = 0;
+		for(const auto & c: state){
+			cost += bookMapping.at(c);
+		}
+		this.cost = cost;
+	}
+
+public:
+	library(std::vector<int> & state, int time_to_setup, int num_books, int id){
+		this.state = std::sort(state.begin(), state.end(), greater<int>());
+		this.time_to_setup = time_to_setup;
+		this.num_books = num_books;
+		this.id = id;
+		calcCost();
+	}
+
+	int getCost(){
+		return this.cost;
+	}
+
+	std::vector<int> getBooks(){
+		return this.state;
+	}
+
+	int getTimeToSetup(){
+		return this.time_to_setup;
+	}
+
+	int getNumBooks(){
+		return this.num_books;
+	}
+
+	ostream& operator<<(ostream& os, const library& dt)
+	{
+	  os << dt.id << '/' << dt.num_books << '/' << dt.time_to_setup;
+	  return os;
+	}
+
+}
+
 class neighbour{
 
     int index1;
@@ -96,30 +146,37 @@ class compareNeighbours{
 
 class tabu_search{
 
-    CSVReader flowRead = CSVReader("/home/batman/Documents/google_code_jam/ieeextreme_prep/Flow.csv");
-    CSVReader distanceRead = CSVReader("/home/batman/Documents/google_code_jam/ieeextreme_prep/Distance.csv");
+    CSVReader libaryRead = CSVReader("/home/batman/Documents/hashcode_comp/libraries.csv");
+		CSVReader bookMapping = CSVReader("/home/batman/Documents/hashcode_comp/bookMapping.csv");
+		CSVReader otherInfo = CSVReader("/home/batman/Documents/hashcode_comp/otherInfo.csv");
 
-    std::vector<std::vector<int>> flowMatrix;
-    std::vector<std::vector<int>> DistanceMatrix;
+    std::vector<library> libraries;
+		std::unordered_set<int> considered_books;
+		std::unordered_map<int> book_score_mapping;
 
     int tabu_list_size;
-    std::vector<int> state = std::vector<int>(20, 0);
+    std::vector<int> state;
 
-    std::map<std::vector<int>, int> recency_frequency_matrix;
-    std::map<std::vector<int>, int> frequency_matrix;
+    std::map<library, int> recency_frequency_matrix;
+    std::map<library, int> frequency_matrix;
 
     int best_score;
     int current_state_score;
     int numIter;
+		int num_books;
+		int num_libraries;
+		int num_days;
 
     int find_cost();
-    int find_cost(const std::vector<int> &);
-    void swap(std::vector<int> & state, const int & index1, const int & index2);
-    bool try_add(const std::vector<int> &);
+    int find_cost(const std::vector<library> &);
+    void swap(std::vector<library> & state, const int & index1, const int & index2);
+		void remove(std::vector<library> &, int index);
+		void add(std::vector<library> &, const library & lib )
+    bool try_add_tabu(const std::vector<int> &);
     void print_recency_matrix();
 
     public:
-        tabu_search(const int & tabu_list);
+        tabu_search(const int & tabu_list, int num_books, int num_libraries, int num_days );
         void move();
         void solve();
         void print_matrix(const std::vector<std::vector<int>> & matrix);

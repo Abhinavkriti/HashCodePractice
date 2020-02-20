@@ -1,28 +1,22 @@
 #include "tabu_search.hpp"
 
-tabu_search::tabu_search(const int & tabu_list){
+tabu_search::tabu_search(const int & tabu_list, int num_books, int num_libraries, int num_days){
     // std::cout << "starting schtuff" << std::endl;
 
     // first = true;
     numIter = 0;
 
-    best_score = 1000000;
-    current_state_score = 10000000;
+    best_score = INT_MIN;
+    current_state_score = INT_MIN;
 
-    for(int i = 0; i < 20; ++i){
-        this->state.at(i) = i + 1;
+    libraryRead.get(libraries);
+    bookMapping.get(book_score_mapping);
+
+    for(int i = 0; i < num_libraries; ++i){
+        this->state.at(i) = libraries.at(i);
     }
 
     // this->state = {5, 11, 12, 16, 15, 17, 18, 2, 7, 10, 4, 8, 20, 3, 1, 13, 6, 19, 14, 9};
-
-    std::random_shuffle(this->state.begin(), this->state.end());
-
-    print_matrix(this->state);
-
-    flowRead.get(flowMatrix);
-    // print_matrix(flowMatrix);
-    distanceRead.get(DistanceMatrix);
-    // print_matrix(DistanceMatrix);
 
     this->tabu_list_size = tabu_list;
 
@@ -35,44 +29,8 @@ tabu_search::tabu_search(const int & tabu_list){
 int tabu_search::find_cost(){
     int cost = 0;
 
-    for(int i = 0; i < 20; i++){ // TODO: could improve runtime if I tracked which nodes were disturbed
-        for(int j = i+1; j < 20; j++){
-            if (i == j){
-                continue;
-            }
-            int c = this->state.at(i);
-            int f = this->state.at(j);
+    
 
-            cost += this->flowMatrix.at(c-1).at(f-1) *
-             this->DistanceMatrix.at(i).at(j);
-
-        }
-    }
-
-    best_score = std::min(cost, best_score);
-    return cost;
-
-}
-
-int tabu_search::find_cost(const std::vector<int> & state){
-    int cost = 0;
-
-    for(int i = 0; i < 20; i++){ // TODO: could improve runtime if I tracked which nodes were disturbed
-        for(int j = i+1; j < 20; j++){
-            if (i == j){
-                continue;
-            }
-            int c = state.at(i);
-            int f = state.at(j);
-
-            cost += this->flowMatrix.at(c-1).at(f-1) *
-             this->DistanceMatrix.at(i).at(j);
-
-        }
-    }
-
-    best_score = std::min(cost, best_score);
-    // std::cout << cost << std::endl;
     return cost;
 }
 
@@ -94,10 +52,18 @@ void tabu_search::print_matrix(const std::vector<int> & matrix){
         std::cout << std::endl;
 }
 
-void tabu_search::swap(std::vector<int> & state, const int & index1, const int & index2){
+void tabu_search::swap(std::vector<library> & state, const int & index1, const int & index2){
     int temp = state.at(index1);
     state.at(index1) = state.at(index2);
     state.at(index2) = temp;
+}
+
+void tabu_search::remove(std::vector<library> & state, int index){
+    state.erase(state.begin() + index);
+}
+
+void tabu_search::add(std::vector<library> & state, const library & lib){
+    state.emplace_back(lib);
 }
 
 void tabu_search::print_recency_matrix(){
@@ -108,7 +74,7 @@ void tabu_search::print_recency_matrix(){
     }
 }
 
-bool tabu_search::try_add(const std::vector<int> & state){
+bool tabu_search::try_add_tabu(const std::vector<int> & state){
 
     if(this->recency_frequency_matrix.find(state) == this->recency_frequency_matrix.end()){
         this->recency_frequency_matrix[state] = this->tabu_list_size + 1;
@@ -142,12 +108,12 @@ bool tabu_search::try_add(const std::vector<int> & state){
 }
 
 void tabu_search::move(){
-    
+
     std::vector<int> state_copy = this->state;
     //std::cout << "Initial State:" << std::endl;
     //print_matrix(this->state);
     //std::cout << this->best_score << std::endl;
-    
+
     std::priority_queue<neighbour, std::vector<neighbour>, compareNeighbours> pq;
 
     // determine neighbours
@@ -163,7 +129,7 @@ void tabu_search::move(){
             pq.emplace(neighbour(i,j,find_cost(state_copy)));
 
             this->swap(state_copy, j, i);
-            
+
         }
     }
     // first = true;
@@ -174,7 +140,7 @@ void tabu_search::move(){
         // std::cout << x.getIndex2() << std::endl;
         this->swap(state_copy, x.getIndex1(), x.getIndex2());
         // print_matrix(state_copy);
-        if(!try_add(state_copy)){
+        if(!try_add_tabu(state_copy)){
             this->swap(state_copy, x.getIndex1(), x.getIndex2());
             pq.pop();
             // first = false;
@@ -188,7 +154,7 @@ void tabu_search::move(){
         }
     }
     //std::cout << "Moved to new state:" << std::endl;
-    //print_matrix(this->state);  
+    //print_matrix(this->state);
     // std::cout << this->current_state_score << std::endl;
 }
 
@@ -200,7 +166,7 @@ void tabu_search::solve(){
     }
     std::cout << "Final state:" << std::endl;
     print_matrix(this->state);
-    test_cases(); 
+    test_cases();
     std::cout << "Number of Iterations: " << std::to_string(numIter) << std::endl;
 }
 
