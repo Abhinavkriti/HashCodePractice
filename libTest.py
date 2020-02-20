@@ -1,6 +1,7 @@
 class lib():
-    def __init__(self, libId, books, scanDays, maxPerDay):
+    def __init__(self, libId, books, scanDays, maxPerDay, numBooks):
         self.libId = libId;
+        self.numBooks;
         #List of tuples [id, score]
         self.books = books.sort(key=lambda x: x[1], reverse=True);
         self.scanDays = scanDays;
@@ -11,5 +12,9 @@ def scoreLib(self):
     curIndex = 0
     #Maxdays constant for our deadline day
     for i in range(maxDays - self.scanDays):
-        self.score += sum()
+        self.score += sum(score for _, score in books[curIndex, min(curIndex+maxPerDay, self.numBooks-1))
+        #End if we've used all our books early.
+        if curIndex >= self.numBooks:
+            return self.score;
 
+    return self.score;
