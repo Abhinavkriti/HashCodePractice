@@ -21,8 +21,6 @@ tabu_search::tabu_search(const int & tabu_list, int num_books, int num_libraries
         this->state.at(i) = libraries.at(i);
     }
 
-
-
     // this->state = {5, 11, 12, 16, 15, 17, 18, 2, 7, 10, 4, 8, 20, 3, 1, 13, 6, 19, 14, 9};
 
     this->tabu_list_size = tabu_list;
@@ -38,14 +36,56 @@ int tabu_search::find_cost(){
     int day = 0;
     int lib_id = 0;
     while(day < this.num_days){
+      if(lib_id == state.size()){
+        break;
+      }
       auto temp_lib = this.state.at(lib_id++);
       if(day + temp_lib.getTimeToSetup() < this.num_days){
         day += temp_lib.getTimeToSetup();
-        if(day + std::ceil(temp_lib.getBookSize()/temp_lib.getNumBookRate()) < this.num_days){
-          cost += temp_lib.getCost();
+        temp_day = day;
+        for(int i = 0; i < temp_lib.getBookSize() || temp_day >= this.num_days; ++i){
+          for(int j = 0; j < temp_lib.getNumBookRate() || j < temp_lib.getBookSize(); ++j){
+              if(considered_books[i] > 0){
+                cost += temp_lib.getBooks().at(i++);
+              }
+              else{
+                j--;
+              }
+          }
+          i = j;
+          temp_day++;
         }
-        else{
-          cost += temp_lib.getCumSumCost.at((this.num_days - day)*temp_lib.getNumBookRate());
+      }
+    }
+
+    best_score = std::max(cost, best_score);
+
+    return cost;
+}
+
+int tabu_search::find_cost(const std::vector<library> & state){
+    int cost = 0;
+    int day = 0;
+    int lib_id = 0;
+    while(day < this.num_days){
+      if(lib_id == state.size()){
+        break;
+      }
+      auto temp_lib = state.at(lib_id++);
+      if(day + temp_lib.getTimeToSetup() < this.num_days){
+        day += temp_lib.getTimeToSetup();
+        temp_day = day;
+        for(int i = 0; i < temp_lib.getBookSize() || temp_day >= this.num_days; ++i){
+          for(int j = 0; j < temp_lib.getNumBookRate() || j < temp_lib.getBookSize(); ++j){
+              if(considered_books[i] > 0){
+                cost += temp_lib.getBooks().at(i++);
+              }
+              else{
+                j--;
+              }
+          }
+          i = j;
+          temp_day++;
         }
       }
     }
@@ -154,18 +194,36 @@ void tabu_search::move(){
     }
     for(int i = 0; i < this.state.size(); ++i){
       auto temp = this->remove(state_copy, i);
-      pq.emplace(neighbour(-1,-1, find_cost(state_copy)));
+      pq.emplace(neighbour(i,i, find_cost(state_copy)));
       this->add(state_copy, temp);
     }
     // first = true;
     bool cancellation_token = false;
     while(!cancellation_token){
         neighbour x = pq.top();
-        this->swap(state_copy, x.getIndex1(), x.getIndex2());
+        library temp;
+        if(x.getIndex1() == -1){
+            this->add(state_copy, this->findEmptyLibrary());
+        }
+        else if(x.getIndex1() == x.getIndex2()){
+            temp = this->remove(state_copy, i);
+        }
+        else{
+            this->swap(state_copy, x.getIndex1(), x.getIndex2());
+        }
+
         // print_matrix(state_copy);
         if(!try_add_tabu(state_copy)){
-            this->swap(state_copy, x.getIndex1(), x.getIndex2());
-            pq.pop();
+          if(x.getIndex1() == -1){
+              this->remove(state_copy, this.state.size() - 1);
+          }
+          else if(x.getIndex1() == x.getIndex2()){
+              this->add(state_copy, temp);
+          }
+          else{
+              this->swap(state_copy, x.getIndex1(), x.getIndex2());
+          }
+          pq.pop();
             // first = false;
         }
         else{
