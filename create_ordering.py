@@ -1,14 +1,14 @@
 
 from read_input import input_reader
 from library import Library
-import pprint
+from output_excreter import excrete_output
 
 filename = 'a_example.txt'
 
 input_values = input_reader(filename)
 
 for a, b in input_values.items():
-    print a, b
+    print(a, b)
 
 bookCount = input_values['bookCount']
 libraryCount = input_values['libraryCount']
@@ -48,6 +48,7 @@ def calculate_score(libs):
 
 print(calculate_score(libraryList))
 
+excrete_output('out_a.test', libraryList)
 
 # def rankLibs(libs):
 #     libs.sort(key=lambda x: x.score, reverse=True)
