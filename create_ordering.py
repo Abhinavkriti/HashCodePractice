@@ -2,53 +2,58 @@
 from read_input import input_reader
 from library import Library
 from output_excreter import excrete_output
+file_list = [
+    'a_example',
+    'b_read_on',
+    'c_incunabula'
+]
 
-filename = 'a_example.txt'
+for filename in file_list:
 
-input_values = input_reader(filename)
+    input_values = input_reader(filename)
 
-for a, b in input_values.items():
-    print(a, b)
+    # for a, b in input_values.items():
+    #     print(a, b)
 
-bookCount = input_values['bookCount']
-libraryCount = input_values['libraryCount']
-daysLeft = input_values['dayCount']
-scores = input_values['scores']
-libraries = input_values['libraries']
+    bookCount = input_values['bookCount']
+    libraryCount = input_values['libraryCount']
+    daysLeft = input_values['dayCount']
+    scores = input_values['scores']
+    libraries = input_values['libraries']
 
-print('*'*30)
+    # print('*'*30)
 
 
-libraryList = []
-usedBooks = set()
-nullLibrary = Library(-1, [], 0, 0, 0)
-nullLibrary.scoreLib(daysLeft, usedBooks)
-while daysLeft > 0 and libraries:
+    libraryList = []
+    usedBooks = set()
+    nullLibrary = Library(-1, [], 0, 0, 0)
+    nullLibrary.scoreLib(daysLeft, usedBooks)
+    while daysLeft > 0 and libraries:
 
-    bestLibrary = nullLibrary
-    index = -1
-    for i, library in enumerate(libraries):
-        library.scoreLib(daysLeft, usedBooks)
-        if library.score > bestLibrary.score:
-            bestLibrary = library
-            index = i
-    libraries.pop(index)
-    libraryList.append(bestLibrary)
-    usedBooks.add(tuple(bestLibrary.includeBooks))
+        bestLibrary = nullLibrary
+        index = -1
+        for i, library in enumerate(libraries):
+            library.scoreLib(daysLeft, usedBooks)
+            if library.score > bestLibrary.score:
+                bestLibrary = library
+                index = i
+        libraries.pop(index)
+        libraryList.append(bestLibrary)
+        usedBooks.add(tuple(bestLibrary.includeBooks))
 
-    daysLeft -= bestLibrary.scanDays
+        daysLeft -= bestLibrary.scanDays
 
-    
-for library in libraryList:
-    print(library)
 
-def calculate_score(libs):
+    # for library in libraryList:
+    #     print(library)
 
-    return sum([lib.score for lib in libs])
+    def calculate_score(libs):
 
-print(calculate_score(libraryList))
+        return sum([lib.score for lib in libs])
 
-excrete_output('out_a.test', libraryList)
+    print(calculate_score(libraryList))
+
+    excrete_output(filename + '.out', libraryList)
 
 # def rankLibs(libs):
 #     libs.sort(key=lambda x: x.score, reverse=True)
