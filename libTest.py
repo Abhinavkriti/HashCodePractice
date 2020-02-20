@@ -12,9 +12,10 @@ def scoreLib(self):
     curIndex = 0
     #Maxdays constant for our deadline day
     for i in range(maxDays - self.scanDays):
-        self.score += sum(score for _, score in books[curIndex, min(curIndex+maxPerDay, self.numBooks-1))
+        maxIndex = min(curIndex+maxPerDay, self.numBooks-1)
+        self.score += sum(score for _, score in books[curIndex, maxIndex])
+        curIndex = maxIndex
         #End if we've used all our books early.
         if curIndex >= self.numBooks:
             return self.score;
-
     return self.score;
