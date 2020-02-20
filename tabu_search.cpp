@@ -240,7 +240,7 @@ void tabu_search::move(){
 }
 
 void tabu_search::solve(){
-    while(this->find_cost() > 1286){
+    while(numIter < 10000){
         move();
         // test_cases();
         numIter++;
