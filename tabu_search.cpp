@@ -1,5 +1,9 @@
 #include "tabu_search.hpp"
 
+void tabu_search::getInput(std::vector<library> & lib, std::unordered_map<int, int> book_score_mapping, int num_days){
+
+}
+
 tabu_search::tabu_search(const int & tabu_list, int num_books, int num_libraries, int num_days){
     // std::cout << "starting schtuff" << std::endl;
 
@@ -10,7 +14,8 @@ tabu_search::tabu_search(const int & tabu_list, int num_books, int num_libraries
     current_state_score = INT_MIN;
     this.num_days = num_days;
 
-    libraries = libraryRead.get();
+    getInput(libraries, book_score_mapping);
+
     // bookMapping.get(book_score_mapping);
 
     for(const auto & c: book_score_mapping){ // I'll take the time cost here
@@ -56,6 +61,9 @@ int tabu_search::find_cost(){
           temp_day++;
         }
       }
+      else{
+        break;
+      }
     }
 
     best_score = std::max(cost, best_score);
@@ -87,6 +95,9 @@ int tabu_search::find_cost(const std::vector<library> & state){
           i = j;
           temp_day++;
         }
+      }
+      else{
+        break;
       }
     }
 

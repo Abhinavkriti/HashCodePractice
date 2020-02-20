@@ -65,54 +65,6 @@ class library{
 // 	return os;
 // }
 
-class CSVReader
-{
-	std::string fileName;
-    char delimiter;
-
-    public:
-        CSVReader(std::string filename, char delimiter=',') :
-                fileName(filename),
-                delimiter(delimiter)
-        { }
-
-        std::vector<library> get();
-        void set(std::string & fileName);
-};
-
-void CSVReader::set(std::string & fileName){
-    this->fileName = fileName;
-}
-
-std::vector<library> CSVReader::get()
-{
-  std::vector<library> dataList;
-	std::cout << fileName <<std::endl;
-  std::ifstream file(fileName);
-  if (file) {
-      std::cout << "read file" <<std::endl;
-  }
-	std::string line;
-
-	while(std::getline(file,line))
-  {
-      std::cout << "csvreader::get::whileGetLine" << std::endl;
-      std::stringstream lineStream(line);
-      std::string cell;
-      std::vector<int> parsedRow;
-      while(std::getline(lineStream,cell, this->delimiter))
-      {
-          parsedRow.emplace_back(std::stoi(cell));
-      }
-
-      dataList.emplace_back(parsedRow);
-  }
-	// Close the File
-	file.close();
-
-  return dataList;
-}
-
 class neighbour{
 
     int index1;
@@ -151,9 +103,6 @@ class compareNeighbours{
 
 class tabu_search{
 
-    CSVReader libaryRead = CSVReader("/home/batman/Documents/hashcode_comp/libraries.csv");
-		CSVReader bookMapping = CSVReader("/home/batman/Documents/hashcode_comp/bookMapping.csv");
-
     std::vector<library> libraries;
 		std::unordered_map<int, int> considered_books;
 		std::unordered_map<int, int> book_score_mapping;
@@ -180,6 +129,7 @@ class tabu_search{
     bool try_add_tabu(const std::vector<int> &);
     void print_recency_matrix();
 		library findEmptyLibrary(int index);
+		void getInput(std::vector<library> & lib, std::unordered_map<int, int> book_score_mapping, int num_days);
 
     public:
         tabu_search(const int & tabu_list, int num_books, int num_libraries, int num_days );
