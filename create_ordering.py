@@ -3,9 +3,9 @@ from read_input import input_reader
 from library import Library
 from output_excreter import excrete_output
 file_list = [
-    'a_example',
-    'b_read_on',
-    'c_incunabula'
+    'a_example.txt',
+    # 'b_read_on',
+    # 'c_incunabula'
 ]
 
 for filename in file_list:
@@ -39,6 +39,10 @@ for filename in file_list:
                 index = i
         libraries.pop(index)
         libraryList.append(bestLibrary)
+        print('daysLeft', daysLeft)
+        print('-'*15)
+        print('used', usedBooks)
+        print('include', bestLibrary.includeBooks)
         usedBooks.update(tuple(bestLibrary.includeBooks))
 
         daysLeft -= bestLibrary.scanDays
