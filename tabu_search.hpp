@@ -68,13 +68,15 @@ class library{
 	int cost;
 	int id;
 
-	void calcCost(const std::unordered_map<int> & bookMapping){
+	void calcCost(const std::unordered_map<int, int> & bookMapping){
 		int cost = 0;
 		for(const auto & c: state){
-			cost += bookMapping.at(c);
+			cost += bookMapping[c];
 		}
 		this.cost = cost;
 	}
+
+	friend std::ostream& operator<<(ostream& os, const library& dt);
 
 public:
 	library(std::vector<int> & state, int time_to_setup, int num_books, int id){
@@ -114,7 +116,11 @@ public:
 		return this.num_books;
 	}
 
-	ostream& operator<<(ostream& os, const library& dt)
+	int getID(){
+		return this.id;
+	}
+
+	std::ostream& operator<<(ostream& os, const library& dt)
 	{
 	  os << dt.id << '/' << dt.num_books << '/' << dt.time_to_setup;
 	  return os;
@@ -167,7 +173,7 @@ class tabu_search{
     std::vector<library> libraries;
 		std::unordered_map<int, int> considered_books;
 		std::unordered_map<int, int> book_score_mapping;
-		std::unordered_set<libary> considered_libraries;
+		std::unordered_set<libary> free_libraries;
 
     int tabu_list_size;
     std::vector<int> state;
@@ -189,7 +195,7 @@ class tabu_search{
 		void add(std::vector<library> &, const library & lib )
     bool try_add_tabu(const std::vector<int> &);
     void print_recency_matrix();
-		library findEmptyLibrary();
+		library findEmptyLibrary(int index);
 
     public:
         tabu_search(const int & tabu_list, int num_books, int num_libraries, int num_days );

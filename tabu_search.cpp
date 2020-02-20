@@ -10,7 +10,7 @@ tabu_search::tabu_search(const int & tabu_list, int num_books, int num_libraries
     current_state_score = INT_MIN;
     this.num_days = num_days;
 
-    libraryRead.get(libraries);
+    libraries = libraryRead.get();
     // bookMapping.get(book_score_mapping);
 
     for(const auto & c: book_score_mapping){ // I'll take the time cost here
@@ -118,11 +118,12 @@ void tabu_search::add(std::vector<library> & state, const library & lib){
     state.emplace_back(lib);
 }
 
-library tabu_search::findEmptyLibrary(){
-    if(this.considered_libraries.empty()){
-      return null;
+library tabu_search::findEmptyLibrary(int index){
+    for(const auto &c: free_libraries){
+      if(c.getID() == index){
+        return c;
+      }
     }
-    return *this.considered_libraries.begin();
 }
 
 void tabu_search::print_recency_matrix(){
@@ -184,12 +185,9 @@ void tabu_search::move(){
         }
     }
     //forgive me lord for i have sinned
-    for(int i = 0; i < this.state.size(); ++i){
-      if(this->findEmptyLibrary() == null){
-        break;
-      }
-      this->add(state_copy, this->findEmptyLibrary());
-      pq.emplace(neighbour(-1,-1, find_cost(state_copy)));
+    for(const auto & elem: free_libraries){
+      this->add(state_copy, elem);
+      pq.emplace(neighbour(-elem.getID(),-elem.getID(), find_cost(state_copy)));
       this->remove(state_copy, this.state.size() - 1);
     }
     for(int i = 0; i < this.state.size(); ++i){
@@ -202,8 +200,9 @@ void tabu_search::move(){
     while(!cancellation_token){
         neighbour x = pq.top();
         library temp;
-        if(x.getIndex1() == -1){
-            this->add(state_copy, this->findEmptyLibrary());
+        if(x.getIndex1() < 0){
+            temp = this->findEmptyLibrary(x.getIndex1());
+            this->add(state_copy, temp);
         }
         else if(x.getIndex1() == x.getIndex2()){
             temp = this->remove(state_copy, i);
@@ -214,7 +213,7 @@ void tabu_search::move(){
 
         // print_matrix(state_copy);
         if(!try_add_tabu(state_copy)){
-          if(x.getIndex1() == -1){
+          if(x.getIndex1() < 0){
               this->remove(state_copy, this.state.size() - 1);
           }
           else if(x.getIndex1() == x.getIndex2()){
@@ -228,6 +227,18 @@ void tabu_search::move(){
         }
         else{
             this->state = state_copy; // move to new state
+            if(x.getIndex1() < 0){
+                free_libraries.erase(temp);
+                for(const auto &c : temp.getBooks()){
+
+                }
+            }
+            else if(x.getIndex1() == x.getIndex2()){
+
+            }
+            else{
+                this->swap(state_copy, x.getIndex1(), x.getIndex2());
+            }
             // this->current_state_score = x.getCost();
             // std::cout << "COST" << std::to_string(x.getCost()) << std::endl;
             pq.pop();
