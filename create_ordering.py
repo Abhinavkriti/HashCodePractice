@@ -38,7 +38,7 @@ while daysLeft > 0 and libraries:
 
     daysLeft -= bestLibrary.scanDays
 
-
+    
 for library in libraryList:
     print(library)
 

@@ -21,6 +21,6 @@ class Library:
         if daysLeft <= self.scanDays:
             return 0
         end_index = self.maxPerDay * (daysLeft - self.scanDays)
-        self.includeBooks = [score for (book, score) in self.books if book not in usedBooks][:end_index]
-        self.score = sum(self.includeBooks)
+        self.includeBooks = [(book, score) for (book, score) in self.books if book not in usedBooks][:end_index]
+        self.score = sum([score for book, score in self.includeBooks])
 
