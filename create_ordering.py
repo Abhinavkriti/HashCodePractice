@@ -39,7 +39,7 @@ for filename in file_list:
                 index = i
         libraries.pop(index)
         libraryList.append(bestLibrary)
-        usedBooks.add(tuple(bestLibrary.includeBooks))
+        usedBooks.update(tuple(bestLibrary.includeBooks))
 
         daysLeft -= bestLibrary.scanDays
 
