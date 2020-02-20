@@ -8,13 +8,20 @@ tabu_search::tabu_search(const int & tabu_list, int num_books, int num_libraries
 
     best_score = INT_MIN;
     current_state_score = INT_MIN;
+    this.num_days = num_days;
 
     libraryRead.get(libraries);
-    bookMapping.get(book_score_mapping);
+    // bookMapping.get(book_score_mapping);
+
+    for(const auto & c: book_score_mapping){ // I'll take the time cost here
+      considered_books[c.first]++;
+    }
 
     for(int i = 0; i < num_libraries; ++i){
         this->state.at(i) = libraries.at(i);
     }
+
+
 
     // this->state = {5, 11, 12, 16, 15, 17, 18, 2, 7, 10, 4, 8, 20, 3, 1, 13, 6, 19, 14, 9};
 
@@ -28,28 +35,31 @@ tabu_search::tabu_search(const int & tabu_list, int num_books, int num_libraries
 
 int tabu_search::find_cost(){
     int cost = 0;
+    int day = 0;
+    int lib_id = 0;
+    while(day < this.num_days){
+      auto temp_lib = this.state.at(lib_id++);
+      if(day + temp_lib.getTimeToSetup() < this.num_days){
+        day += temp_lib.getTimeToSetup();
+        if(day + std::ceil(temp_lib.getBookSize()/temp_lib.getNumBookRate()) < this.num_days){
+          cost += temp_lib.getCost();
+        }
+        else{
+          cost += temp_lib.getCumSumCost.at((this.num_days - day)*temp_lib.getNumBookRate());
+        }
+      }
+    }
 
-    
+    best_score = std::max(cost, best_score);
 
     return cost;
 }
 
-void tabu_search::print_matrix(const std::vector<std::vector<int>>& matrix){
+void tabu_search::print_matrix(const std::vector<library>& matrix){
     for(auto & row: matrix){
         // std::cout << "whats up3" << std::endl;
-        for(auto &col: row){
-            // std::cout << "whats up4" << std::endl;
-            std::cout << col << ", ";
-        }
-        std::cout << std::endl;
+        std::cout << row << std::endl;
     }
-}
-
-void tabu_search::print_matrix(const std::vector<int> & matrix){
-        for(auto it = matrix.begin(); it != matrix.end(); ++it){
-            std::cout << *it << ", ";
-        }
-        std::cout << std::endl;
 }
 
 void tabu_search::swap(std::vector<library> & state, const int & index1, const int & index2){
@@ -58,12 +68,21 @@ void tabu_search::swap(std::vector<library> & state, const int & index1, const i
     state.at(index2) = temp;
 }
 
-void tabu_search::remove(std::vector<library> & state, int index){
+library tabu_search::remove(std::vector<library> & state, int index){
+    auto temp = state.at(index);
     state.erase(state.begin() + index);
+    return temp;
 }
 
 void tabu_search::add(std::vector<library> & state, const library & lib){
     state.emplace_back(lib);
+}
+
+library tabu_search::findEmptyLibrary(){
+    if(this.considered_libraries.empty()){
+      return null;
+    }
+    return *this.considered_libraries.begin();
 }
 
 void tabu_search::print_recency_matrix(){
@@ -74,7 +93,7 @@ void tabu_search::print_recency_matrix(){
     }
 }
 
-bool tabu_search::try_add_tabu(const std::vector<int> & state){
+bool tabu_search::try_add_tabu(const library & state){
 
     if(this->recency_frequency_matrix.find(state) == this->recency_frequency_matrix.end()){
         this->recency_frequency_matrix[state] = this->tabu_list_size + 1;
@@ -117,27 +136,31 @@ void tabu_search::move(){
     std::priority_queue<neighbour, std::vector<neighbour>, compareNeighbours> pq;
 
     // determine neighbours
-    for(int i = 0; i < 20; ++i){
-        for(int j = i+1; j < 20; ++j){
-
-            if(i == j){
-                continue;
-            }
-
+    for(int i = 0; i < this.state.size(); ++i){
+        for(int j = i+1; j < this.state.size(); ++j){
             this->swap(state_copy, i, j);
-
             pq.emplace(neighbour(i,j,find_cost(state_copy)));
-
             this->swap(state_copy, j, i);
-
         }
+    }
+    //forgive me lord for i have sinned
+    for(int i = 0; i < this.state.size(); ++i){
+      if(this->findEmptyLibrary() == null){
+        break;
+      }
+      this->add(state_copy, this->findEmptyLibrary());
+      pq.emplace(neighbour(-1,-1, find_cost(state_copy)));
+      this->remove(state_copy, this.state.size() - 1);
+    }
+    for(int i = 0; i < this.state.size(); ++i){
+      auto temp = this->remove(state_copy, i);
+      pq.emplace(neighbour(-1,-1, find_cost(state_copy)));
+      this->add(state_copy, temp);
     }
     // first = true;
     bool cancellation_token = false;
     while(!cancellation_token){
         neighbour x = pq.top();
-        // std::cout << x.getIndex1() << std::endl;
-        // std::cout << x.getIndex2() << std::endl;
         this->swap(state_copy, x.getIndex1(), x.getIndex2());
         // print_matrix(state_copy);
         if(!try_add_tabu(state_copy)){

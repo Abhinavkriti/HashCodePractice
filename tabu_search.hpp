@@ -11,6 +11,7 @@
 #include <ctime>
 #include <set>
 #include <map>
+#include <math.h>
 
 class CSVReader
 {
@@ -31,33 +32,33 @@ void CSVReader::set(std::string & fileName){
     this->fileName = fileName;
 }
 
-std::vector<std::vector<int>> CSVReader::get()
+std::vector<library> CSVReader::get()
 {
-    std::vector<std::vector<int>> dataList;
+  std::vector<library> dataList;
 	std::cout << fileName <<std::endl;
-    std::ifstream file(fileName);
-    if (file) {
-        std::cout << "read file" <<std::endl;
-    }
+  std::ifstream file(fileName);
+  if (file) {
+      std::cout << "read file" <<std::endl;
+  }
 	std::string line;
 
 	while(std::getline(file,line))
-    {
-        std::cout << "csvreader::get::whileGetLine" << std::endl;
-        std::stringstream lineStream(line);
-        std::string cell;
-        std::vector<int> parsedRow;
-        while(std::getline(lineStream,cell, this->delimiter))
-        {
-            parsedRow.emplace_back(std::stoi(cell));
-        }
+  {
+      std::cout << "csvreader::get::whileGetLine" << std::endl;
+      std::stringstream lineStream(line);
+      std::string cell;
+      std::vector<int> parsedRow;
+      while(std::getline(lineStream,cell, this->delimiter))
+      {
+          parsedRow.emplace_back(std::stoi(cell));
+      }
 
-        dataList.emplace_back(parsedRow);
-    }
+      dataList.emplace_back(parsedRow);
+  }
 	// Close the File
 	file.close();
 
-    return dataList;
+  return dataList;
 }
 
 class library{
@@ -84,6 +85,15 @@ public:
 		calcCost();
 	}
 
+	std::vector<int> getCumSumCost(){ // assumes we have at least one library
+		std::vector<int> temp;
+		temp.emplace_back(this.state[0]);
+		for(int i = 1; i < this.state.size(); ++i){
+			temp.emplace_back(this.state.at(i) + temp.at(i-1));
+		}
+		return temp;
+	}
+
 	int getCost(){
 		return this.cost;
 	}
@@ -92,11 +102,15 @@ public:
 		return this.state;
 	}
 
+	int getBookSize(){
+		return this.state.size();
+	}
+
 	int getTimeToSetup(){
 		return this.time_to_setup;
 	}
 
-	int getNumBooks(){
+	int getNumBookRate(){
 		return this.num_books;
 	}
 
@@ -151,8 +165,9 @@ class tabu_search{
 		CSVReader otherInfo = CSVReader("/home/batman/Documents/hashcode_comp/otherInfo.csv");
 
     std::vector<library> libraries;
-		std::unordered_set<int> considered_books;
-		std::unordered_map<int> book_score_mapping;
+		std::unordered_map<int, int> considered_books;
+		std::unordered_map<int, int> book_score_mapping;
+		std::unordered_set<libary> considered_libraries;
 
     int tabu_list_size;
     std::vector<int> state;
@@ -174,6 +189,7 @@ class tabu_search{
 		void add(std::vector<library> &, const library & lib )
     bool try_add_tabu(const std::vector<int> &);
     void print_recency_matrix();
+		library findEmptyLibrary();
 
     public:
         tabu_search(const int & tabu_list, int num_books, int num_libraries, int num_days );
