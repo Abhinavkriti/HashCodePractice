@@ -95,12 +95,12 @@ int tabu_search::find_cost(const std::vector<library> & state){
     return cost;
 }
 
-void tabu_search::print_matrix(const std::vector<library>& matrix){
-    for(auto & row: matrix){
-        // std::cout << "whats up3" << std::endl;
-        std::cout << row << std::endl;
-    }
-}
+// void tabu_search::print_matrix(const std::vector<library>& matrix){
+//     for(auto & row: matrix){
+//         // std::cout << "whats up3" << std::endl;
+//         std::cout << row << std::endl;
+//     }
+// }
 
 void tabu_search::swap(std::vector<library> & state, const int & index1, const int & index2){
     int temp = state.at(index1);
@@ -126,13 +126,13 @@ library tabu_search::findEmptyLibrary(int index){
     }
 }
 
-void tabu_search::print_recency_matrix(){
-    std::cout << "Recency Matrix" << std::endl;
-    for(auto &i: this->recency_frequency_matrix){
-        print_matrix(i.first);
-        std::cout << "::::: " << i.second << std::endl;
-    }
-}
+// void tabu_search::print_recency_matrix(){
+//     std::cout << "Recency Matrix" << std::endl;
+//     for(auto &i: this->recency_frequency_matrix){
+//         print_matrix(i.first);
+//         std::cout << "::::: " << i.second << std::endl;
+//     }
+// }
 
 bool tabu_search::try_add_tabu(const library & state){
 
@@ -260,7 +260,7 @@ void tabu_search::solve(){
         numIter++;
     }
     std::cout << "Final state:" << std::endl;
-    print_matrix(this->state);
+    // print_matrix(this->state);
     test_cases();
     std::cout << "Number of Iterations: " << std::to_string(numIter) << std::endl;
 }

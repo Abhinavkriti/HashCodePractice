@@ -10,8 +10,60 @@
 #include <queue>
 #include <ctime>
 #include <set>
+#include <unordered_set>
 #include <map>
+#include <unordered_map>
 #include <math.h>
+
+class library{
+	std::vector<int> state;
+	int time_to_setup;
+	int num_books;
+	int cost;
+	int id;
+
+	// friend std::ostream& operator<<(std::ostream& os, const library& dt);
+
+	public:
+		library(std::vector<int> & state, int time_to_setup, int num_books, int id){
+			std::sort(state.begin(), state.end(), std::greater<int>());
+			this->state = state;
+			this->time_to_setup = time_to_setup;
+			this->num_books = num_books;
+			this->id = id;
+		}
+
+		int getCost(){
+			return this->cost;
+		}
+
+		std::vector<int> getBooks(){
+			return this->state;
+		}
+
+		int getBookSize(){
+			return this->state.size();
+		}
+
+		int getTimeToSetup(){
+			return this->time_to_setup;
+		}
+
+		int getNumBookRate(){
+			return this->num_books;
+		}
+
+		int getID(){
+			return this->id;
+		}
+
+};
+
+// std::ostream& operator<<(std::ostream& os, const library& dt)
+// {
+// 	os << dt.id << '/' << dt.num_books << '/' << dt.time_to_setup;
+// 	return os;
+// }
 
 class CSVReader
 {
@@ -24,7 +76,7 @@ class CSVReader
                 delimiter(delimiter)
         { }
 
-        std::vector<std::vector<int>> get();
+        std::vector<library> get();
         void set(std::string & fileName);
 };
 
@@ -59,73 +111,6 @@ std::vector<library> CSVReader::get()
 	file.close();
 
   return dataList;
-}
-
-class library{
-	std::vector<int> & state;
-	int time_to_setup;
-	int num_books;
-	int cost;
-	int id;
-
-	void calcCost(const std::unordered_map<int, int> & bookMapping){
-		int cost = 0;
-		for(const auto & c: state){
-			cost += bookMapping[c];
-		}
-		this.cost = cost;
-	}
-
-	friend std::ostream& operator<<(ostream& os, const library& dt);
-
-public:
-	library(std::vector<int> & state, int time_to_setup, int num_books, int id){
-		this.state = std::sort(state.begin(), state.end(), greater<int>());
-		this.time_to_setup = time_to_setup;
-		this.num_books = num_books;
-		this.id = id;
-		calcCost();
-	}
-
-	std::vector<int> getCumSumCost(){ // assumes we have at least one library
-		std::vector<int> temp;
-		temp.emplace_back(this.state[0]);
-		for(int i = 1; i < this.state.size(); ++i){
-			temp.emplace_back(this.state.at(i) + temp.at(i-1));
-		}
-		return temp;
-	}
-
-	int getCost(){
-		return this.cost;
-	}
-
-	std::vector<int> getBooks(){
-		return this.state;
-	}
-
-	int getBookSize(){
-		return this.state.size();
-	}
-
-	int getTimeToSetup(){
-		return this.time_to_setup;
-	}
-
-	int getNumBookRate(){
-		return this.num_books;
-	}
-
-	int getID(){
-		return this.id;
-	}
-
-	std::ostream& operator<<(ostream& os, const library& dt)
-	{
-	  os << dt.id << '/' << dt.num_books << '/' << dt.time_to_setup;
-	  return os;
-	}
-
 }
 
 class neighbour{
@@ -168,12 +153,11 @@ class tabu_search{
 
     CSVReader libaryRead = CSVReader("/home/batman/Documents/hashcode_comp/libraries.csv");
 		CSVReader bookMapping = CSVReader("/home/batman/Documents/hashcode_comp/bookMapping.csv");
-		CSVReader otherInfo = CSVReader("/home/batman/Documents/hashcode_comp/otherInfo.csv");
 
     std::vector<library> libraries;
 		std::unordered_map<int, int> considered_books;
 		std::unordered_map<int, int> book_score_mapping;
-		std::unordered_set<libary> free_libraries;
+		std::set<library> free_libraries;
 
     int tabu_list_size;
     std::vector<int> state;
@@ -192,7 +176,7 @@ class tabu_search{
     int find_cost(const std::vector<library> &);
     void swap(std::vector<library> & state, const int & index1, const int & index2);
 		void remove(std::vector<library> &, int index);
-		void add(std::vector<library> &, const library & lib )
+		void add(std::vector<library> &, const library & lib );
     bool try_add_tabu(const std::vector<int> &);
     void print_recency_matrix();
 		library findEmptyLibrary(int index);
