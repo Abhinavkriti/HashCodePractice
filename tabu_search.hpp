@@ -11,12 +11,22 @@
 #include <ctime>
 #include <set>
 #include <unordered_set>
-#include <map>
 #include <unordered_map>
 #include <math.h>
 
+#define INT_MIN -100000
+
+struct book{
+	int id;
+	int cost;
+	book(int id, int cost){
+		id = id;
+		cost = cost;
+	}
+};
+
 class library{
-	std::vector<int> state;
+	std::vector<std::shared_ptr<book> > bookcase;
 	int time_to_setup;
 	int num_books;
 	int cost;
@@ -25,9 +35,15 @@ class library{
 	// friend std::ostream& operator<<(std::ostream& os, const library& dt);
 
 	public:
-		library(std::vector<int> & state, int time_to_setup, int num_books, int id){
-			std::sort(state.begin(), state.end(), std::greater<int>());
-			this->state = state;
+		library() = default;
+
+		library(const std::vector<int> & state, const std::unordered_map<int, int> & book_score_mapping, const int time_to_setup, const int num_books, const int id){
+			for(auto & c: state){
+				bookcase.emplace_back(std::make_shared<book>(c, book_score_mapping.at(c)));
+			}
+			std::sort(bookcase.begin(), bookcase.end(), [](const std::shared_ptr<book>&x, const std::shared_ptr<book>&y){
+				return x->cost >= y->cost;
+			});
 			this->time_to_setup = time_to_setup;
 			this->num_books = num_books;
 			this->id = id;
@@ -37,12 +53,12 @@ class library{
 			return this->cost;
 		}
 
-		std::vector<int> getBooks(){
-			return this->state;
+		std::vector<std::shared_ptr<book>> getBooks(){
+			return this->bookcase;
 		}
 
 		int getBookSize(){
-			return this->state.size();
+			return this->bookcase.size();
 		}
 
 		int getTimeToSetup(){
@@ -103,16 +119,15 @@ class compareNeighbours{
 
 class tabu_search{
 
-    std::vector<library> libraries;
+    std::vector<std::shared_ptr<library> > libraries;
 		std::unordered_map<int, int> considered_books;
-		std::unordered_map<int, int> book_score_mapping;
-		std::set<library> free_libraries;
+		std::set<std::shared_ptr<library> > free_libraries;
 
     int tabu_list_size;
-    std::vector<int> state;
+    std::vector<std::shared_ptr<library> > state;
 
-    std::map<library, int> recency_frequency_matrix;
-    std::map<library, int> frequency_matrix;
+    std::map<std::vector<std::shared_ptr<library>>, int> recency_frequency_matrix;
+    std::map<std::vector<std::shared_ptr<library>>, int> frequency_matrix;
 
     int best_score;
     int current_state_score;
@@ -122,21 +137,23 @@ class tabu_search{
 		int num_days;
 
     int find_cost();
-    int find_cost(const std::vector<library> &);
-    void swap(std::vector<library> & state, const int & index1, const int & index2);
-		void remove(std::vector<library> &, int index);
-		void add(std::vector<library> &, const library & lib );
-    bool try_add_tabu(const std::vector<int> &);
+    int find_cost(const std::vector<std::shared_ptr<library> > &);
+    void swap(std::vector<std::shared_ptr<library> > & state, const int & index1, const int & index2);
+		std::shared_ptr<library> remove(std::vector<std::shared_ptr<library> > &, int index);
+		void add(std::vector<std::shared_ptr<library> > &, const std::shared_ptr<library> & lib );
+    bool try_add_tabu(const std::vector<std::shared_ptr<library> >  &);
     void print_recency_matrix();
-		library findEmptyLibrary(int index);
-		void getInput(std::vector<library> & lib, std::unordered_map<int, int> book_score_mapping, int num_days);
+		std::shared_ptr<library> findEmptyLibrary(int index);
+		void getInput(const std::string & inputFile);
 
     public:
-        tabu_search(const int & tabu_list, int num_books, int num_libraries, int num_days );
+				std::unordered_map<int, int> book_score_mapping;
+
+        tabu_search(const int & tabu_list, const std::string & );
         void move();
         void solve();
         void print_matrix(const std::vector<std::vector<int>> & matrix);
         void print_matrix(const std::vector<int> & matrix);
-
+				~tabu_search() = default;
         void test_cases();
 };
