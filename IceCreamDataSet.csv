@@ -1,0 +1,87 @@
+Customer,Date,Flavor,Revenue,Profit
+Drew Roulette,3/1/2018,Chocolate,$4.00,$3.00
+Don Frazon,3/2/2018,Vanilla,$4.00,$3.00
+Erin Davidson,3/2/2018,Vanilla,$4.00,$3.00
+Ted Price,3/2/2018,Chocolate,$4.00,$3.00
+Lila Stevens,3/3/2018,Cookie Dough,$5.00,$3.75
+Sierra Noonan,3/3/2018,Cookie Dough,$5.00,$3.75
+Ian Richardson,3/3/2018,Chocolate,$4.00,$3.00
+Drew Roulette,3/4/2018,Chocolate Chip,$5.00,$3.75
+Sean Lansfrow,3/4/2018,Vanilla,$4.00,$3.00
+Malcolm Benjamin,3/4/2018,Cookie Dough,$5.00,$3.75
+Erin Davidson,3/6/2018,Cookie Dough,$5.00,$3.75
+Ted Price,3/6/2018,Chocolate,$4.00,$3.00
+Dennis Perelman,3/7/2018,Cookie Dough,$5.00,$3.75
+Lila Stevens,3/7/2018,Cookie Dough,$5.00,$3.75
+Silvio Carrera,3/7/2018,Cookie Dough,$5.00,$3.75
+Ted Price,3/8/2018,Chocolate,$4.00,$3.00
+Sierra Noonan,3/8/2018,Vanilla,$4.00,$3.00
+Sean Lansfrow,3/8/2018,Vanilla,$4.00,$3.00
+Tony DiCenzo,3/9/2018,Chocolate Chip,$5.00,$3.75
+Malcolm Benjamin,3/9/2018,Chocolate,$4.00,$3.00
+Ian Richardson,3/10/2018,Vanilla,$4.00,$3.00
+Drew Roulette,3/10/2018,Chocolate,$4.00,$3.00
+Sierra Noonan,3/10/2018,Cookie Dough,$5.00,$3.75
+Don Frazon,3/10/2018,Chocolate Chip,$5.00,$3.75
+Sean Lansfrow,3/11/2018,Vanilla,$4.00,$3.00
+Tony DiCenzo,3/11/2018,Chocolate Chip,$5.00,$3.75
+Erin Davidson,3/11/2018,Cookie Dough,$5.00,$3.75
+Silvio Carrera,3/11/2018,Chocolate,$4.00,$3.00
+Dennis Perelman,3/11/2018,Chocolate,$4.00,$3.00
+Lila Stevens,3/11/2018,Cookie Dough,$5.00,$3.75
+Sean Lansfrow,3/13/2018,Vanilla,$4.00,$3.00
+Sierra Noonan,3/13/2018,Chocolate Chip,$5.00,$3.75
+Malcolm Benjamin,3/14/2018,Vanilla,$4.00,$3.00
+Ted Price,3/15/2018,Chocolate,$4.00,$3.00
+Drew Roulette,3/15/2018,Cookie Dough,$5.00,$3.75
+Tony DiCenzo,3/15/2018,Chocolate Chip,$5.00,$3.75
+Ted Price,3/16/2018,Chocolate,$4.00,$3.00
+Don Frazon,3/16/2018,Mint Chip,$5.00,$3.75
+Sierra Noonan,3/16/2018,Mint Chip,$5.00,$3.75
+Lila Stevens,3/16/2018,Cookie Dough,$5.00,$3.75
+Malcolm Benjamin,3/17/2018,Mint Chip,$5.00,$3.75
+Silvio Carrera,3/17/2018,Vanilla,$4.00,$3.00
+Dennis Perelman,3/17/2018,Mint Chip,$5.00,$3.75
+Sierra Noonan,3/17/2018,Mint Chip,$5.00,$3.75
+Tony DiCenzo,3/17/2018,Mint Chip,$5.00,$3.75
+Ted Price,3/18/2018,Chocolate,$4.00,$3.00
+Don Frazon,3/18/2018,Mint Chip,$5.00,$3.75
+Sierra Noonan,3/18/2018,Mint Chip,$5.00,$3.75
+Sean Lansfrow,3/18/2018,Vanilla,$4.00,$3.00
+Lila Stevens,3/18/2018,Cookie Dough,$5.00,$3.75
+Drew Roulette,3/20/2018,Vanilla,$4.00,$3.00
+Ian Richardson,3/20/2018,Chocolate Chip,$5.00,$3.75
+Tony DiCenzo,3/21/2018,Chocolate,$4.00,$3.00
+Silvio Carrera,3/22/2018,Vanilla,$4.00,$3.00
+Sierra Noonan,3/23/2018,Chocolate Chip,$5.00,$3.75
+Don Frazon,3/23/2018,Vanilla,$4.00,$3.00
+Malcolm Benjamin,3/23/2018,Chocolate Chip,$5.00,$3.75
+Silvio Carrera,3/24/2018,Chocolate Chip,$5.00,$3.75
+Erin Davidson,3/24/2018,Vanilla,$4.00,$3.00
+Sean Lansfrow,3/24/2018,Vanilla,$4.00,$3.00
+Ian Richardson,3/24/2018,Chocolate,$4.00,$3.00
+Tony DiCenzo,3/25/2018,Vanilla,$4.00,$3.00
+Sierra Noonan,3/25/2018,Chocolate Chip,$5.00,$3.75
+Ted Price,3/25/2018,Chocolate,$4.00,$3.00
+Ian Richardson,3/27/2018,Chocolate,$4.00,$3.00
+Erin Davidson,3/28/2018,Vanilla,$2.00,$1.00
+Silvio Carrera,3/28/2018,Vanilla,$2.00,$1.00
+Dennis Perelman,3/28/2018,Chocolate,$2.00,$1.00
+Don Frazon,3/28/2018,Vanilla,$2.00,$1.00
+Ted Price,3/28/2018,Chocolate,$2.00,$1.00
+Malcolm Benjamin,3/28/2018,Chocolate Chip,$2.50,$1.25
+Sean Lansfrow,3/28/2018,Vanilla,$2.00,$1.00
+Erin Davidson,3/28/2018,Chocolate Chip,$2.50,$1.25
+Tony DiCenzo,3/28/2018,Chocolate Chip,$2.50,$1.25
+Drew Roulette,3/28/2018,Vanilla,$2.00,$1.00
+Sierra Noonan,3/28/2018,Chocolate,$2.00,$1.00
+Ian Richardson,3/28/2018,Vanilla,$2.00,$1.00
+Silvio Carrera,3/28/2018,Vanilla,$2.00,$1.00
+Don Frazon,3/28/2018,Chocolate Chip,$2.50,$1.25
+Ian Richardson,3/29/2018,Chocolate,$4.00,$3.00
+Malcolm Benjamin,3/30/2018,Chocolate Chip,$5.00,$3.75
+Drew Roulette,3/30/2018,Vanilla,$4.00,$3.00
+Silvio Carrera,3/31/2018,Chocolate,$4.00,$3.00
+Sean Lansfrow,3/31/2018,Vanilla,$4.00,$3.00
+Ted Price,3/31/2018,Chocolate,$4.00,$3.00
+Don Frazon,3/31/2018,Chocolate Chip,$5.00,$3.75
