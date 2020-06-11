@@ -1,16 +1,16 @@
 import math
                                                                                                                                                                                       
 def solution(total_lambs):                                                                                                                                                                                         
-    if(total_lambs == 1):
-        return 0                                                                                                           
-    if(total_lambs == 2):                                                                               
-        return 1                                                                                                                                                                                                      
-    if(total_lambs == 4):
-        return 1
-    generous_case = int(math.log(total_lambs, 2))                                                                                                                                                             
-    gen_verify = (2**generous_case) - 1                                                                        
-    if((total_lambs - gen_verify) >= (2**(generous_case - 1) + 2**(generous_case - 2)) and (total_lambs - gen_verify) <= (2**generous_case)):                                                                               
-        generous_case += 1                                     
+    dBuffer = []
+    dIter = 0
+    dprefix = 0
+    while(dIter < total_lambs):
+        currValue = 2**dIter
+        dBuffer.append(currValue)
+        dprefix += currValue
+        if(dprefix > total_lambs):
+            break
+        dIter += 1
     # print("gen case: " + str(generous_case))
     fibBuffer = [1,1]
     fibprefix = 2
@@ -22,7 +22,7 @@ def solution(total_lambs):
         if(fibprefix > total_lambs):
             break
         fibIter += 1
-    return len(fibBuffer) - generous_case  
+    return len(fibBuffer) - len(dBuffer)  
 
 for i in range(1, 10):
     print("i: " + str(i))
