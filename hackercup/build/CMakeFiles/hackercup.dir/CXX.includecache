@@ -1,0 +1,24 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/batman/Documents/hashcode_comp/hackercup/alchemy.cpp
+string
+-
+iostream
+-
+fstream
+-
+iomanip
+-
+vector
+-
+queue
+-
+utility
+-
+

@@ -1,0 +1,22 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/batman/Documents/hashcode_comp/hackercup/main.cpp
+string
+-
+iostream
+-
+iomanip
+-
+vector
+-
+queue
+-
+utility
+-
+
