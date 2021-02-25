@@ -6,10 +6,16 @@
 
 #IncludeRegexTransform: 
 
-/home/batman/Documents/hashcode_comp/hackercup/main.cpp
+/home/batman/Documents/hashcode_comp/hackercup/quarantine.cpp
 string
 -
 iostream
+-
+sstream
+-
+iterator
+-
+fstream
 -
 iomanip
 -

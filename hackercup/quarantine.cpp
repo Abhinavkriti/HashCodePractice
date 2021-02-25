@@ -41,7 +41,7 @@ rabbit solution(const int & N, const int & K, const int & A, const int & B, cons
     int num_uninfected = 0;
     int num_infected = 0;
 
-    for(int i = 0; i <= N; ++i ){
+    for(int i = 0; i < N; ++i ){
         if(stones.at(i) == '#'){
             num_infected++;
         }
@@ -57,9 +57,18 @@ rabbit solution(const int & N, const int & K, const int & A, const int & B, cons
         }
     }
 
+    // if there isn't already a chain of good numbers
     if(num_uninfected - 1 > uninfect_to_uninfect){
-        
+        int ra = num_uninfected - 1 - uninfect_to_uninfect;
+        uninfect_to_uninfect = uninfect_to_uninfect + std::min(ra, uninfect_to_infect);
+        uninfect_to_infect = uninfect_to_infect - std::min(ra, uninfect_to_infect);
+        x.y = std::min(ra, uninfect_to_infect);
     }
+    
+    // TODO: I'm stuck on a clean way of getting x.y
+
+
+    x.x = nChoosek(uninfect_to_uninfect + 1, 2);
 
     return x;
 }

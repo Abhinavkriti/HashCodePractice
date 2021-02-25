@@ -57,27 +57,27 @@ include CMakeFiles/hackercup.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/hackercup.dir/flags.make
 
-CMakeFiles/hackercup.dir/main.cpp.o: CMakeFiles/hackercup.dir/flags.make
-CMakeFiles/hackercup.dir/main.cpp.o: ../main.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/batman/Documents/hashcode_comp/hackercup/new_bu/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/hackercup.dir/main.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/hackercup.dir/main.cpp.o -c /home/batman/Documents/hashcode_comp/hackercup/main.cpp
+CMakeFiles/hackercup.dir/quarantine.cpp.o: CMakeFiles/hackercup.dir/flags.make
+CMakeFiles/hackercup.dir/quarantine.cpp.o: ../quarantine.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/batman/Documents/hashcode_comp/hackercup/new_bu/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/hackercup.dir/quarantine.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/hackercup.dir/quarantine.cpp.o -c /home/batman/Documents/hashcode_comp/hackercup/quarantine.cpp
 
-CMakeFiles/hackercup.dir/main.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/hackercup.dir/main.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/batman/Documents/hashcode_comp/hackercup/main.cpp > CMakeFiles/hackercup.dir/main.cpp.i
+CMakeFiles/hackercup.dir/quarantine.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/hackercup.dir/quarantine.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/batman/Documents/hashcode_comp/hackercup/quarantine.cpp > CMakeFiles/hackercup.dir/quarantine.cpp.i
 
-CMakeFiles/hackercup.dir/main.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/hackercup.dir/main.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/batman/Documents/hashcode_comp/hackercup/main.cpp -o CMakeFiles/hackercup.dir/main.cpp.s
+CMakeFiles/hackercup.dir/quarantine.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/hackercup.dir/quarantine.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/batman/Documents/hashcode_comp/hackercup/quarantine.cpp -o CMakeFiles/hackercup.dir/quarantine.cpp.s
 
 # Object files for target hackercup
 hackercup_OBJECTS = \
-"CMakeFiles/hackercup.dir/main.cpp.o"
+"CMakeFiles/hackercup.dir/quarantine.cpp.o"
 
 # External object files for target hackercup
 hackercup_EXTERNAL_OBJECTS =
 
-hackercup: CMakeFiles/hackercup.dir/main.cpp.o
+hackercup: CMakeFiles/hackercup.dir/quarantine.cpp.o
 hackercup: CMakeFiles/hackercup.dir/build.make
 hackercup: CMakeFiles/hackercup.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/batman/Documents/hashcode_comp/hackercup/new_bu/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable hackercup"

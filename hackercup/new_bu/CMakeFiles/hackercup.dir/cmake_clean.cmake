@@ -1,5 +1,5 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/hackercup.dir/main.cpp.o"
+  "CMakeFiles/hackercup.dir/quarantine.cpp.o"
   "hackercup.pdb"
   "hackercup"
 )

@@ -123,32 +123,32 @@ hackercup/fast:
 	$(MAKE) -f CMakeFiles/hackercup.dir/build.make CMakeFiles/hackercup.dir/build
 .PHONY : hackercup/fast
 
-main.o: main.cpp.o
+quarantine.o: quarantine.cpp.o
 
-.PHONY : main.o
+.PHONY : quarantine.o
 
 # target to build an object file
-main.cpp.o:
-	$(MAKE) -f CMakeFiles/hackercup.dir/build.make CMakeFiles/hackercup.dir/main.cpp.o
-.PHONY : main.cpp.o
+quarantine.cpp.o:
+	$(MAKE) -f CMakeFiles/hackercup.dir/build.make CMakeFiles/hackercup.dir/quarantine.cpp.o
+.PHONY : quarantine.cpp.o
 
-main.i: main.cpp.i
+quarantine.i: quarantine.cpp.i
 
-.PHONY : main.i
+.PHONY : quarantine.i
 
 # target to preprocess a source file
-main.cpp.i:
-	$(MAKE) -f CMakeFiles/hackercup.dir/build.make CMakeFiles/hackercup.dir/main.cpp.i
-.PHONY : main.cpp.i
+quarantine.cpp.i:
+	$(MAKE) -f CMakeFiles/hackercup.dir/build.make CMakeFiles/hackercup.dir/quarantine.cpp.i
+.PHONY : quarantine.cpp.i
 
-main.s: main.cpp.s
+quarantine.s: quarantine.cpp.s
 
-.PHONY : main.s
+.PHONY : quarantine.s
 
 # target to generate assembly for a file
-main.cpp.s:
-	$(MAKE) -f CMakeFiles/hackercup.dir/build.make CMakeFiles/hackercup.dir/main.cpp.s
-.PHONY : main.cpp.s
+quarantine.cpp.s:
+	$(MAKE) -f CMakeFiles/hackercup.dir/build.make CMakeFiles/hackercup.dir/quarantine.cpp.s
+.PHONY : quarantine.cpp.s
 
 # Help Target
 help:
@@ -159,9 +159,9 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... hackercup"
 	@echo "... edit_cache"
-	@echo "... main.o"
-	@echo "... main.i"
-	@echo "... main.s"
+	@echo "... quarantine.o"
+	@echo "... quarantine.i"
+	@echo "... quarantine.s"
 .PHONY : help
 
 

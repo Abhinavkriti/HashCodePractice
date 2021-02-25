@@ -1,1 +1,1 @@
-/usr/bin/c++     CMakeFiles/hackercup.dir/main.cpp.o  -o hackercup 
+/usr/bin/c++     CMakeFiles/hackercup.dir/quarantine.cpp.o  -o hackercup 

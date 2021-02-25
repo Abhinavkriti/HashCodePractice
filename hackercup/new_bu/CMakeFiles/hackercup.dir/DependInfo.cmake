@@ -4,7 +4,7 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/batman/Documents/hashcode_comp/hackercup/main.cpp" "/home/batman/Documents/hashcode_comp/hackercup/new_bu/CMakeFiles/hackercup.dir/main.cpp.o"
+  "/home/batman/Documents/hashcode_comp/hackercup/quarantine.cpp" "/home/batman/Documents/hashcode_comp/hackercup/new_bu/CMakeFiles/hackercup.dir/quarantine.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 
